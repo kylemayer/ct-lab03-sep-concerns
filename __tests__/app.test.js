@@ -1,5 +1,5 @@
 const pool = require('../lib/utils/pool');
-const twilio = require('twilio');
+// const twilio = require('twilio');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
@@ -65,13 +65,13 @@ describe('03_separation-of-concerns-demo routes', () => {
   });
 
 
-  it('deletes an exisiting order by id', async () => {
+  it('deletes an existing order by id', async () => {
     const order = await Order.insert({ quantity: 10 });
 
     return request(app)
-      .get(`/api/v1/orders/${order.id}`)
+      .delete(`/api/v1/orders/${order.id}`)
       .then((res) => {
-        expect(res.body).toContain(order);
+        expect(res.body).not.toContain(order);
       });
   });
 });
